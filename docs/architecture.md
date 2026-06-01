@@ -2,7 +2,7 @@
 
 ## Diagrama simple
 
-```
+```txt
 ![Diagrama de base de datos](diagrama_db.png)
 
 ![Diagrama de arquitectura](arquitectura_de_sft.png)

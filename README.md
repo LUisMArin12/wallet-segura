@@ -2,7 +2,7 @@
 
 Aplicación web full stack para registrar usuarios, iniciar sesión y administrar métodos de pago de forma segura.
 
-El proyecto está diseñado como una prueba técnica realista para un perfil **Full Stack Junior**: simple, funcional, organizado, seguro y defendible en entrevista técnica.
+El proyecto está diseñado como una prueba técnica realista para un perfil **Full Stack Junior**: simple, funcional, organizado y seguro.
 
 ## Demo desplegada
 

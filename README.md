@@ -533,3 +533,5 @@ Usar el siguiente Start Command en Render:
 ```bash
 PYTHONPATH=. alembic upgrade head && PYTHONPATH=. uvicorn app.main:app --host 0.0.0.0 --port $PORT
 ```
+* Mejorar validaciones visuales en formularios.
+* Agregar pruebas end-to-end.

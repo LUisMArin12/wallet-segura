@@ -1,11 +1,13 @@
 # Arquitectura del proyecto
 
-## Diagrama simple
+## Diagrama de Arquitectura y Base de Datos
 
-```txt
 ![Diagrama de base de datos](diagrama_db.png)
 
 ![Diagrama de arquitectura](arquitectura_de_sft.png)
+
+```
+
 ```
 
 ## Flujo de autenticación

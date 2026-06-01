@@ -105,4 +105,4 @@ description
 created_at
 ```
 
-La auditoría ayuda a revisar actividad del usuario y demostrar trazabilidad básica en la prueba técnica.
+La auditoría ayuda a revisar actividad del usuario.

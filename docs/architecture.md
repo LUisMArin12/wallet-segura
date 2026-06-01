@@ -2,33 +2,10 @@
 
 ## Diagrama simple
 
-```txt
-┌──────────────────────────┐
-│      React + Vite        │
-│                          │
-│  Login / Register        │
-│  Dashboard               │
-│  Métodos de pago         │
-│  Activar / Desactivar    │
-└─────────────┬────────────┘
-              │ HTTP + JWT Bearer
-              ▼
-┌──────────────────────────┐
-│         FastAPI          │
-│                          │
-│  Auth routes             │
-│  Payment routes          │
-│  Audit routes            │
-└─────────────┬────────────┘
-              │ SQLAlchemy
-              ▼
-┌──────────────────────────┐
-│         SQLite           │
-│                          │
-│  users                   │
-│  payment_methods         │
-│  audit_logs              │
-└──────────────────────────┘
+```
+![Diagrama de base de datos](diagrama_db.png)
+
+![Diagrama de arquitectura](arquitectura_de_sft.png)
 ```
 
 ## Flujo de autenticación

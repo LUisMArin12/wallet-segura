@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { apiRequest } from '../api/client.js';
+import ConfirmationModal from '../components/ConfirmationModal.jsx';
 
 function formatPaymentType(type) {
   const labels = {
@@ -19,6 +20,7 @@ function PaymentMethodDetailPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
   const [changingStatus, setChangingStatus] = useState(false);
+  const [confirmationStatus, setConfirmationStatus] = useState(null);
 
   async function loadDetail() {
     try {
@@ -35,13 +37,11 @@ function PaymentMethodDetailPage() {
     if (!paymentMethod) return;
 
     const nextStatus = paymentMethod.status === 'active' ? 'inactive' : 'active';
-    const confirmed = window.confirm(
-      nextStatus === 'inactive'
-        ? '¿Seguro que deseas desactivar este método de pago?'
-        : '¿Deseas activar nuevamente este método de pago?'
-    );
+    setConfirmationStatus(nextStatus);
+  }
 
-    if (!confirmed) return;
+  async function confirmStatusChange() {
+    if (!paymentMethod || !confirmationStatus) return;
 
     setChangingStatus(true);
     setError('');
@@ -49,14 +49,19 @@ function PaymentMethodDetailPage() {
     try {
       const updated = await apiRequest(`/payment-methods/${id}/status`, {
         method: 'PATCH',
-        body: JSON.stringify({ status: nextStatus }),
+        body: JSON.stringify({ status: confirmationStatus }),
       });
       setPaymentMethod(updated);
+      setConfirmationStatus(null);
     } catch (err) {
       setError(err.message);
     } finally {
       setChangingStatus(false);
     }
+  }
+
+  function cancelStatusChange() {
+    setConfirmationStatus(null);
   }
 
   useEffect(() => {
@@ -66,6 +71,7 @@ function PaymentMethodDetailPage() {
   if (loading) return <p className="muted">Cargando detalle...</p>;
 
   const isActive = paymentMethod?.status === 'active';
+  const isDeactivation = confirmationStatus === 'inactive';
 
   return (
     <section>
@@ -133,6 +139,21 @@ function PaymentMethodDetailPage() {
           </article>
         </div>
       )}
+
+      <ConfirmationModal
+        isOpen={Boolean(confirmationStatus)}
+        title={isDeactivation ? 'Desactivar método de pago' : 'Activar método de pago'}
+        message={
+          isDeactivation
+            ? '¿Seguro que deseas desactivar este método de pago?'
+            : '¿Deseas activar nuevamente este método de pago?'
+        }
+        confirmLabel={isDeactivation ? 'Desactivar' : 'Activar'}
+        confirmClassName={isDeactivation ? 'danger' : 'primary'}
+        loading={changingStatus}
+        onCancel={cancelStatusChange}
+        onConfirm={confirmStatusChange}
+      />
     </section>
   );
 }
